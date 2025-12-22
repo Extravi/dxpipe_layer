@@ -1,6 +1,5 @@
 # Introduction
-This is a module I developed back in June of 2025; it was intended to share both the back buffer and the depth texture with an external overlay through named pipes and a shared DirectX 11 resource handle. I’m releasing this solely as an educational resource, and its other components won’t be made available. Alongside that, this module is no longer functional.
-
+This is a module I developed back in June of 2025. It was intended to share both the back buffer and the depth texture with an external overlay through named pipes and a shared DirectX 11 resource handle. I’m making this public solely as an educational reference, and the other components that were used alongside it won’t be made available. This module is no longer functional, and it isn’t intended to be used as a working project.
 ## High-Level Overview
 The original `RobloxPlayerBeta.dll` is renamed to `RobloxPlayerBeta_orig.dll` with the same export. This tricks Roblox into loading our module before loading their own. That allows us to initialize very early in the process, and lets the module proxy the relevant DXGI / D3D11 interfaces returned by `dxgi.dll` and `d3d11.dll`.
 
