@@ -1,6 +1,30 @@
 # Introduction
 This is a module I developed back in June of 2025. It was intended to share both the back buffer and the depth texture with an external overlay through named pipes and a shared DirectX 11 resource handle. I’m making this public solely as an educational reference, and the other components that were used alongside it won’t be made available. This module is no longer functional, and it isn’t intended to be used as a working project.
 
+> **Note**
+> This was once part of a functional project that required two external components to
+> work: an external overlay and a ReShade add-on.
+>
+> The workflow functioned like this:
+> Roblox loads our module → our module installs its hooks and starts the overlay →
+> ReShade is then loaded into the external overlay →
+> ReShade then loads a custom add-on to bind the depth texture, since the
+> generic depth add-on is not compatible with this pipeline.
+>
+> During development, I noticed that AMD drivers will complain about a missing entry
+> point if `D3D11CreateDeviceAndSwapChain` is not present, even though Roblox does not
+> call that function. This behavior was not observed on NVIDIA drivers. Development and
+> testing were performed across a range of hardware, including RTX 2070 Super,
+> RTX 5070 Ti, RX 6500 XT, and a laptop with a GTX 1650 and i5-9300H iGPU.
+>
+> This module was actively used as part of **Bloxshade** from June through early August 2025.
+>
+> ▶ **Tutorial video (uploaded July 2025):**  
+> The following video shows how shaders were installed on Roblox at the time and includes
+> this module as part of the software being demonstrated.
+>  
+> [![Bloxshade tutorial](https://img.youtube.com/vi/iO2l5qE52mU/0.jpg)](https://www.youtube.com/watch?v=iO2l5qE52mU)
+
 ## High-Level Overview
 The original `RobloxPlayerBeta.dll` is renamed to `RobloxPlayerBeta_orig.dll` with the same export. This tricks Roblox into loading our module before loading their own. That allows us to initialize very early in the process, and lets the module proxy the relevant DXGI / D3D11 interfaces returned by `dxgi.dll` and `d3d11.dll`.
 
